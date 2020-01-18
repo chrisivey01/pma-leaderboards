@@ -24,16 +24,21 @@ public class MainController {
         this.usersRepostory = usersRepository;
     }
 
+    @GetMapping("get-user-count")
+    public int getUserCount(){
+        return usersRepostory.findAll().size();
+    }
+
     @GetMapping("get-top10-kills")
     public List<Kills> getTopKills(){
-        List<Kills> topKills = new ArrayList<>();
-        usersRepostory.findTopByOrderByKills().forEach((user) -> {
-            Kills kills = new Kills();
-            kills.setFirstname(user.getFirstname());
-            kills.setLastname(user.getLastname());
-            kills.setKills(user.getKills());
-            topKills.add(kills);
-        });
+            List<Kills> topKills = new ArrayList<>();
+            usersRepostory.findTopByOrderByKills().forEach((user) -> {
+                Kills kills = new Kills();
+                kills.setFirstname(user.getFirstname());
+                kills.setLastname(user.getLastname());
+                kills.setKills(user.getKills());
+                topKills.add(kills);
+            });
         return topKills;
     }
 
